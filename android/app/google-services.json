@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694715526500",
+    "project_id": "chef-s-wok-9c846",
+    "storage_bucket": "chef-s-wok-9c846.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694715526500:android:8d7eba7fc63caeda08de71",
+        "android_client_info": {
+          "package_name": "com.example.chefs_wok"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMuEETEII_PYKWsbYNCHiJ8aBt5dyDJ0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
