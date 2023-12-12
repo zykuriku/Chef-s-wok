@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
           children: <Widget>[
             Container(
               height: 200.0,
-              child: Image.asset('images/logo.png'),
+              // child: Image.asset('images/logo.png'),
             ),
             SizedBox(
               height: 48.0,

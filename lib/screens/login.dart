@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -21,16 +22,16 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             Container(
               height: 200.0,
-              child: Image.asset('images/logo.png'),
+              // child: Image.asset('images/logo.png'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 48.0,
             ),
             TextField(
               onChanged: (value) {
                 email = value;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter your email',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8.0,
             ),
             TextField(
@@ -57,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 pass = value;
               },
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter your password.',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24.0,
             ),
             Padding(
@@ -96,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   minWidth: 200.0,
                   height: 42.0,
-                  child: Text(
+                  child: const Text(
                     'Log In',
                   ),
                 ),

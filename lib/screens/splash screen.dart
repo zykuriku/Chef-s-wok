@@ -17,24 +17,27 @@ class _SplashScreenState extends State<SplashScreen> {
                 image: AssetImage('images/splashscreen.jpg'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.6), BlendMode.dstATop))),
+                    Colors.white.withOpacity(0.8), BlendMode.dstATop))),
         constraints: BoxConstraints.expand(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'Spicy Greetings!',
-              style: TextStyle(
-                fontSize: 45.0,
-                fontWeight: FontWeight.w900,
+            Center(
+              child: Text(
+                'Spicy Greetings!',
+                style: TextStyle(
+                  fontSize: 35.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ),
             SizedBox(
               height: 48.0,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 80.0),
               child: Material(
                 elevation: 5.0,
                 color: Color(0xFFCCB4EE),
@@ -53,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 80.0),
               child: Material(
                 color: Color(0xFFCCB4EE),
                 borderRadius: BorderRadius.circular(30.0),
