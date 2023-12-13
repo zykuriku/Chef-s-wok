@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
-class Card extends StatefulWidget {
-  const Card({super.key});
+class Cardd extends StatefulWidget {
+  final id;
+  Cardd({required this.id});
 
   @override
-  State<Card> createState() => _CardState();
+  State<Cardd> createState() => _CarddState();
 }
 
-class _CardState extends State<Card> {
+class _CarddState extends State<Cardd> {
+  var url = 'https://api.spoonacular.com/recipes/$id/information';
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Column(
+        children: [Image(image: NetworkImage(url))],
+      ),
+    );
   }
 }

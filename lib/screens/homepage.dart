@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'favorites.dart';
+import 'package:chefs_wok/utilities/api.dart';
+import 'package:chefs_wok/utilities/card.dart';
 
 List<String> subtitle = [
   'Italiano',
@@ -7,6 +9,14 @@ List<String> subtitle = [
   'Bueno Mexicano',
   'Desi Swaad',
   'Moshi Moshi Japanese'
+];
+
+List<List<String>> name = [
+  ['Carbonara', 'Risotto', 'Polenta', 'Pizza'],
+  ['Mapo Tofu', 'Wonton Soup', 'Spring Rolls', 'Chinese Hot Pot'],
+  ['Tacos', 'Quesadilla', 'Tamales', 'Chilaquiles'],
+  ['Butter Chicken', 'Samosa', 'Vindaloo', 'Soya Chaap'],
+  ['Sushi', 'Udon', 'Yakitori', 'Donburi']
 ];
 
 class HomePage extends StatefulWidget {
@@ -17,7 +27,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int id = 0;
   int _selectedIndex = 0;
+
+  void callApi(String n) async {
+    Api api = Api('https://api.spoonacular.com/recipes/complexSearch?query=$n');
+    var data = await api.getData();
+    if (data == null) {
+      id = 0;
+      return;
+    }
+    id = data['results'][0]['id'];
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Cardd(id: id)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +64,11 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Container(
                       height: 50.0,
-                      color: Colors.green,
+                      color: Colors.orangeAccent,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.format_list_numbered, color: Colors.white),
+                          Icon(Icons.emoji_food_beverage, color: Colors.white),
                           Padding(padding: const EdgeInsets.only(right: 5.0)),
                           Text(subtitle[index],
                               style: TextStyle(
@@ -58,16 +82,25 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 5.0,
-                            child: Container(
-                              height: MediaQuery.of(context).size.width / 3,
-                              width: MediaQuery.of(context).size.width / 3,
-                              alignment: Alignment.center,
-                              child: Text('Item $index'),
+                        itemBuilder: (context, indexx) {
+                          return Stack(children: [
+                            Card(
+                              elevation: 5.0,
+                              child: Container(
+                                height: MediaQuery.of(context).size.width / 3,
+                                width: MediaQuery.of(context).size.width / 3,
+                                alignment: Alignment.center,
+                                child: GestureDetector(
+                                  child: Text(name[index][indexx]),
+                                  onTap: () {
+                                    setState(() {
+                                      callApi(name[index][indexx]);
+                                    });
+                                  },
+                                ),
+                              ),
                             ),
-                          );
+                          ]);
                         },
                       ),
                     ),
