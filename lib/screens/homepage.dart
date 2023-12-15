@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'favorites.dart';
 import 'package:chefs_wok/utilities/api.dart';
 import 'package:chefs_wok/utilities/card.dart';
+import 'package:chefs_wok/utilities/constants.dart';
 
 List<String> subtitle = [
   'Italiano',
@@ -31,29 +32,38 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   void callApi(String n) async {
-    Api api = Api('https://api.spoonacular.com/recipes/complexSearch?query=$n');
+    print(n);
+    Api api = Api(
+        'https://api.spoonacular.com/recipes/complexSearch?query=$n&number=1&apiKey=130abc6160b847d3aa57129ede8550dd');
     var data = await api.getData();
+    print(data);
     if (data == null) {
       id = 0;
       return;
     }
-    id = data['results'][0]['id'];
+
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Cardd(id: id)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => Cardd(
+                  data: data,
+                )));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: bgColor,
       appBar: AppBar(
-        title: Text('Let\'s cook, Jesse!'),
+        title: Center(child: Text('Let\'s cook, Jesse!')),
+        backgroundColor: Colors.brown,
       ),
       bottomNavigationBar: bottomNavigationBar(),
       body: ListView(
         shrinkWrap: true,
         physics: ScrollPhysics(),
         children: <Widget>[
-          SizedBox(height: 20.0),
+          SizedBox(height: 10.0),
           Container(
             child: ListView.builder(
               shrinkWrap: true,
@@ -76,6 +86,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 10.0),
                     Container(
                       height: 150.0,
                       child: ListView.builder(
@@ -104,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 10.0),
                   ],
                 );
               },
