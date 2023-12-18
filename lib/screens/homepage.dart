@@ -55,7 +55,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
-        title: Center(child: Text('Let\'s cook, Jesse!')),
+        centerTitle: true,
+        title: Text('Let\'s cook, Jesse!'),
         backgroundColor: Colors.brown,
       ),
       bottomNavigationBar: bottomNavigationBar(),
@@ -129,10 +130,22 @@ class _HomePageState extends State<HomePage> {
   Widget bottomNavigationBar() {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites')
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.home,
+            color: kColor,
+          ),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite,
+              color: kColor,
+            ),
+            label: 'Favorites')
       ],
       onTap: _onTap,
+      selectedItemColor: kColor,
       currentIndex: _selectedIndex,
     );
   }

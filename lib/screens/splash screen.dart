@@ -1,6 +1,7 @@
 import 'login.dart';
 import 'sign up.dart';
 import 'package:flutter/material.dart';
+import 'package:chefs_wok/utilities/constants.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 80.0),
               child: Material(
                 elevation: 5.0,
-                color: Color(0xFFCCB4EE),
+                color: gColor,
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
@@ -58,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 80.0),
               child: Material(
-                color: Color(0xFFCCB4EE),
+                color: gColor,
                 borderRadius: BorderRadius.circular(30.0),
                 elevation: 5.0,
                 child: MaterialButton(
