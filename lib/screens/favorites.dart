@@ -63,15 +63,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       ),
                     ),
                     onTap: () async {
-                      String url =
-                          'https://api.spoonacular.com/recipes/complexSearch?query=${favListTitle[index]}&number=1&apiKey=$apiKey';
-                      Api a = Api(url);
-
-                      var dd = await a.getData();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Cardd(data: dd)));
+                      //   String url =
+                      //       'https://api.spoonacular.com/recipes/complexSearch?query=${favListTitle[index]}&number=1&apiKey=$apiKey';
+                      //   Api a = Api(url);
+                      //
+                      //   var dd = await a.getData();
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => Cardd(data: dd)));
                     }),
               ),
               separatorBuilder: (BuildContext context, int index) => Divider(
