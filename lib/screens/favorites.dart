@@ -31,8 +31,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    radius: 60,
-                    child: Icon(Icons.favorite_border_outlined),
+                    radius: 40,
+                    backgroundColor: gColor,
+                    child: Icon(
+                      Icons.favorite_border_outlined,
+                      color: Colors.brown,
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -50,11 +54,25 @@ class _FavoritesPageState extends State<FavoritesPage> {
             )
           : ListView.separated(
               itemBuilder: (BuildContext context, int index) => ListTile(
-                title: GestureDetector(child: Text(favListTitle[index]),
-                onTap:()=>{
-                  getData(favListId);
-                }
-                ),
+                title: GestureDetector(
+                    child: ListTile(
+                      title: Text(favListTitle[index]),
+                      leading: Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ),
+                    ),
+                    onTap: () async {
+                      String url =
+                          'https://api.spoonacular.com/recipes/complexSearch?query=${favListTitle[index]}&number=1&apiKey=$apiKey';
+                      Api a = Api(url);
+
+                      var dd = await a.getData();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Cardd(data: dd)));
+                    }),
               ),
               separatorBuilder: (BuildContext context, int index) => Divider(
                 height: 2.0,

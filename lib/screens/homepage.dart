@@ -11,12 +11,23 @@ List<String> subtitle = [
   'Desi Swaad',
   'Moshi Moshi Japanese'
 ];
-
+List<IconData> icons = [
+  Icons.fastfood,
+  Icons.food_bank,
+  Icons.emoji_food_beverage_outlined,
+  Icons.restaurant,
+  Icons.table_chart_outlined
+];
 List<List<String>> name = [
-  ['Carbonara', 'Risotto', 'Polenta', 'Pizza'],
-  ['Mapo Tofu', 'Wonton Soup', 'Spring Rolls', 'Chinese Hot Pot'],
-  ['Tacos', 'Quesadilla', 'Tamales', 'Chilaquiles'],
-  ['Butter Chicken', 'Samosa', 'Dal Makhani', 'Soya Chaap'],
+  ['Crostini', 'Risotto', 'Tiramisu', 'Lasagna'],
+  ['Fried Rice', 'Chinese Steamed Flan', 'Spring Rolls', 'Almond Cookies'],
+  [
+    'Tacos',
+    'Quesadilla',
+    'Mexican Stuffed Potatoes',
+    'Mexican Chicken & Rice Bowl'
+  ],
+  ['Butter Chicken', 'Samosa', 'Mughlai Malai Kofta Curry', 'Tandoori Chicken'],
   ['Sushi', 'Udon', 'Yakitori', 'Donburi']
 ];
 
@@ -34,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   void callApi(String n) async {
     print(n);
     Api api = Api(
-        'https://api.spoonacular.com/recipes/complexSearch?query=$n&number=1&apiKey=130abc6160b847d3aa57129ede8550dd');
+        'https://api.spoonacular.com/recipes/complexSearch?query=$n&number=1&apiKey=$apiKey');
     var data = await api.getData();
     print(data);
     if (data == null) {
@@ -53,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: gColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text('Let\'s cook, Jesse!'),
@@ -75,11 +86,15 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Container(
                       height: 50.0,
-                      color: Colors.orangeAccent,
+                      width: 250.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          gradient: LinearGradient(
+                              colors: [Colors.brown.shade400, kColor])),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.emoji_food_beverage, color: Colors.white),
+                          Icon(icons[index], color: Colors.white),
                           Padding(padding: const EdgeInsets.only(right: 5.0)),
                           Text(subtitle[index],
                               style: TextStyle(
@@ -97,13 +112,29 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, indexx) {
                           return Stack(children: [
                             Card(
+                              color: kColor,
                               elevation: 5.0,
                               child: Container(
                                 height: MediaQuery.of(context).size.width / 3,
                                 width: MediaQuery.of(context).size.width / 3,
                                 alignment: Alignment.center,
                                 child: GestureDetector(
-                                  child: Text(name[index][indexx]),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          'images/$index$indexx.png',
+                                        ),
+                                      ),
+                                      Text(
+                                        name[index][indexx],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                   onTap: () {
                                     setState(() {
                                       callApi(name[index][indexx]);
@@ -163,7 +194,11 @@ class _HomePageState extends State<HomePage> {
 
       case 1:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => FavoritesPage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => FavoritesPage(
+                      favList: favListTitle,
+                    )));
         break;
     }
   }

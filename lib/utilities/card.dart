@@ -8,6 +8,8 @@ String imageUrl = "";
 String title = "";
 int id = 0;
 int len = 0;
+int time = 0;
+Color iconColor = Colors.white;
 dynamic recipeData = "";
 List<String> favListTitle = [];
 List<int> favListId = [];
@@ -16,6 +18,7 @@ List<String> steps = [];
 
 class Cardd extends StatefulWidget {
   final data;
+
   Cardd({required this.data});
 
   @override
@@ -30,6 +33,7 @@ class _CarddState extends State<Cardd> {
     imageUrl = decodedData['results'][0]['image'];
     title = decodedData['results'][0]['title'];
     id = decodedData['results'][0]['id'];
+
     print(id);
     getData(id);
   }
@@ -44,7 +48,10 @@ class _CarddState extends State<Cardd> {
     for (int i = 0; i < len; i++) {
       steps.add(data[0]['steps'][i]['step']);
     }
-
+    Api apii = Api(
+        'https://api.spoonacular.com/recipes/${id}/information?id=$id&apiKey=$apiKey');
+    var d = await apii.getData();
+    time = d['readyInMinutes'];
     Api summ = Api(
         'https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?id=$id&apiKey=$apiKey');
     var sumData = await summ.getData();
@@ -91,30 +98,45 @@ class _CarddState extends State<Cardd> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Icon(Icons.timer),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Ready in ',
-                              style: subStyle,
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.timer,
+                              color: Colors.brown,
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                time.toString() + ' min',
+                                style: subStyle,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            String selectedItemTitle = title;
-                            int selectedItemID = id;
-                            favListTitle.add(selectedItemTitle);
-                            favListId.add(selectedItemID);
-                          });
-                        },
-                        icon: Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              if (iconColor == Colors.white) {
+                                String selectedItemTitle = title;
+                                int selectedItemID = id;
+                                favListTitle.add(selectedItemTitle);
+                                favListId.add(selectedItemID);
+                                iconColor = Colors.red;
+                              } else {
+                                iconColor = Colors.white;
+                              }
+                            });
+                          },
+                          iconSize: 35.0,
+                          icon: Icon(
+                            Icons.favorite,
+                            color: iconColor,
+                          ),
                         ),
                       ),
                     ],
@@ -122,6 +144,12 @@ class _CarddState extends State<Cardd> {
                   // Container(
                   //   child: Text(desc),
                   // ),
+                  Center(
+                    child: Text(
+                      'Recipe',
+                      style: tStyle,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: ListView.builder(
@@ -131,34 +159,47 @@ class _CarddState extends State<Cardd> {
                         itemBuilder: (BuildContext context, int index) {
                           return Text(
                             (index + 1).toString() + ". " + steps[index] + "\n",
-                            style: TextStyle(),
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.italic),
                           );
                         }),
                   ),
-                  Container(
-                    color: Colors.brown,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: TextButton(
-                          onPressed: () => {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => FavoritesPage(
-                                              favList: favListTitle,
-                                            )))
-                              },
-                          child: Row(
-                            children: [
-                              Text(
-                                'Go to ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Icon(Icons.favorite)
-                            ],
-                          )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 60.0),
+                    child: Container(
+                      width: 100.0,
+                      decoration: BoxDecoration(
+                          color: Colors.brown.withOpacity(.6),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TextButton(
+                            onPressed: () => {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => FavoritesPage(
+                                                favList: favListTitle,
+                                              )))
+                                },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Go to ',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18.0),
+                                ),
+                                Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              ],
+                            )),
+                      ),
                     ),
                   )
                 ]),
