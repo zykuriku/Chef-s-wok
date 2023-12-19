@@ -16,7 +16,7 @@ List<List<String>> name = [
   ['Carbonara', 'Risotto', 'Polenta', 'Pizza'],
   ['Mapo Tofu', 'Wonton Soup', 'Spring Rolls', 'Chinese Hot Pot'],
   ['Tacos', 'Quesadilla', 'Tamales', 'Chilaquiles'],
-  ['Butter Chicken', 'Samosa', 'Vindaloo', 'Soya Chaap'],
+  ['Butter Chicken', 'Samosa', 'Dal Makhani', 'Soya Chaap'],
   ['Sushi', 'Udon', 'Yakitori', 'Donburi']
 ];
 
