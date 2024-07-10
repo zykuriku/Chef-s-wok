@@ -21,7 +21,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
       backgroundColor: gColor,
       appBar: AppBar(
         backgroundColor: Colors.brown,
-        title: Text('My faves'),
+        title: Text('My faves',
+        style: TextStyle(
+          color: Colors.white
+        ),),
         centerTitle: true,
       ),
       body: widget.favList.isEmpty
@@ -89,14 +92,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
         BottomNavigationBarItem(
           icon: Icon(
             Icons.home,
-            color: kColor,
+            color: Colors.brown,
           ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.favorite,
-              color: kColor,
+              color: Colors.brown,
             ),
             label: 'Favorites')
       ],

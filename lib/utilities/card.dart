@@ -67,143 +67,155 @@ class _CarddState extends State<Cardd> {
     return Scaffold(
       backgroundColor: Colors.brown,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [gColor, nColor, kColor, bgColor],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight),
-                borderRadius: BorderRadius.circular(10.0),
-                color: gColor),
-            child: ListView(
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text(
-                      title,
-                      style: tStyle,
-                      textAlign: TextAlign.center,
-                    ),
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [gColor, nColor, kColor, bgColor],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight),
+
+              color: gColor),
+          child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    title,
+                    style: tStyle,
+                    textAlign: TextAlign.center,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0)
+                        ),
                         child: Image(
-                      image: NetworkImage(imageUrl),
-                    )),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.timer,
-                              color: Colors.brown,
+                                              image: NetworkImage(imageUrl),
+                                            ),
+                      )),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.timer,
+                            color: Colors.brown,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              time.toString() + ' min',
+                              style: subStyle,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                time.toString() + ' min',
-                                style: subStyle,
-                              ),
-                            ),
-                          ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (iconColor == Colors.white) {
+                              String selectedItemTitle = title;
+                              int selectedItemID = id;
+                              favListTitle.add(selectedItemTitle);
+                              favListId.add(selectedItemID);
+                              iconColor = Colors.red;
+                            } else {
+                              iconColor = Colors.white;
+                            }
+                          });
+                        },
+                        iconSize: 35.0,
+                        icon: Icon(
+                          Icons.favorite,
+                          color: iconColor,
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                // Container(
+                //   child: Text(desc),
+                // ),
+                Expanded(child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(50.0),topRight: Radius.circular(50.0))
+                        ,color: Colors.brown.shade900,
+                  ),
+
+                  child: Column(
+                    children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              if (iconColor == Colors.white) {
-                                String selectedItemTitle = title;
-                                int selectedItemID = id;
-                                favListTitle.add(selectedItemTitle);
-                                favListId.add(selectedItemID);
-                                iconColor = Colors.red;
-                              } else {
-                                iconColor = Colors.white;
-                              }
-                            });
-                          },
-                          iconSize: 35.0,
-                          icon: Icon(
-                            Icons.favorite,
-                            color: iconColor,
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Center(
+                          child: Text(
+                            'Recipe',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30.0
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  // Container(
-                  //   child: Text(desc),
-                  // ),
-                  Center(
-                    child: Text(
-                      'Recipe',
-                      style: tStyle,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: ListView.builder(
-                        itemCount: len,
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Text(
-                            (index + 1).toString() + ". " + steps[index] + "\n",
-                            style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FontStyle.italic),
-                          );
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 60.0),
-                    child: Container(
-                      width: 100.0,
-                      decoration: BoxDecoration(
-                          color: Colors.brown.withOpacity(.6),
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Padding(
+                      Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: TextButton(
-                            onPressed: () => {
+                        child: ListView.builder(
+                            itemCount: len,
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Text(
+                                (index + 1).toString() + ". " + steps[index] + "\n",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FontStyle.italic),
+                              );
+                            }),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 60.0),
+                        child: Container(
+                          width: 100.0,
+                          decoration: BoxDecoration(
+                              color: Colors.brown.shade400,
+                              borderRadius: BorderRadius.circular(20.0)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextButton(
+                                onPressed: () => {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => FavoritesPage(
-                                                favList: favListTitle,
-                                              )))
+                                            favList: favListTitle,
+                                          )))
                                 },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Go to ',
+                                child: Text(
+                                  'Favorites',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 18.0),
-                                ),
-                                Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              ],
-                            )),
-                      ),
-                    ),
-                  )
-                ]),
-          ),
+                                      color: Colors.white, fontSize: 12.0),
+                                )),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ))
+
+              ]),
         ),
       ),
     );
